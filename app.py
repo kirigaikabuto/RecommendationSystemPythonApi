@@ -3,10 +3,9 @@ import pandas.io.sql as psql
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-from flask import Flask, jsonify, request
 
 connection = pg.connect("host=localhost dbname=recommendation_system user=setdatauser password=123456789")
-app = Flask(__name__)
+
 
 
 def getContentBasedRecommendations(selectedId):
@@ -88,15 +87,8 @@ def getCollaborativeFilteringRecommendation(userId, number, resultFromAnother):
     newlist = sorted(res, key=itemgetter('predicted_rating'), reverse=True)
     return newlist
 
-@app.route("/recommendation", methods=["GET"])
-def getRecommendation():
-    userIdStr = request.url.ge
-
-
 
 
 # print(getContentBasedRecommendations(993))
-# print(getCollaborativeFilteringRecommendation("447016d2-c75f-4916-87fd-0bb7c3281a80", 994,
-#                                               getContentBasedRecommendations(994)))
-if __name__ == "__main__":
-    app.run()
+print(getCollaborativeFilteringRecommendation("447016d2-c75f-4916-87fd-0bb7c3281a80", 994,
+                                              getContentBasedRecommendations(994)))

@@ -11,5 +11,10 @@ message RecRequest{
 }
 
 message ReqResponse{
-  string movieIds = 1;
+  repeated MovieResponse movies = 1;
+}
+
+message MovieResponse{
+  int32 movie_id = 1;
+  float predicted_rating = 2;
 }

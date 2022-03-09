@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\001/',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ndata.proto\"-\n\nRecRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07movieId\x18\x02 \x01(\x05\"\x1f\n\x0bReqResponse\x12\x10\n\x08movieIds\x18\x01 \x01(\t28\n\x07Greeter\x12-\n\x0eRecommendation\x12\x0b.RecRequest\x1a\x0c.ReqResponse\"\x00\x42\x03Z\x01/b\x06proto3'
+  serialized_pb=b'\n\ndata.proto\"-\n\nRecRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07movieId\x18\x02 \x01(\x05\"-\n\x0bReqResponse\x12\x1e\n\x06movies\x18\x01 \x03(\x0b\x32\x0e.MovieResponse\";\n\rMovieResponse\x12\x10\n\x08movie_id\x18\x01 \x01(\x05\x12\x18\n\x10predicted_rating\x18\x02 \x01(\x02\x32\x38\n\x07Greeter\x12-\n\x0eRecommendation\x12\x0b.RecRequest\x1a\x0c.ReqResponse\"\x00\x42\x03Z\x01/b\x06proto3'
 )
 
 
@@ -73,9 +73,9 @@ _REQRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='movieIds', full_name='ReqResponse.movieIds', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='movies', full_name='ReqResponse.movies', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -92,11 +92,52 @@ _REQRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=61,
-  serialized_end=92,
+  serialized_end=106,
 )
 
+
+_MOVIERESPONSE = _descriptor.Descriptor(
+  name='MovieResponse',
+  full_name='MovieResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='movie_id', full_name='MovieResponse.movie_id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='predicted_rating', full_name='MovieResponse.predicted_rating', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=108,
+  serialized_end=167,
+)
+
+_REQRESPONSE.fields_by_name['movies'].message_type = _MOVIERESPONSE
 DESCRIPTOR.message_types_by_name['RecRequest'] = _RECREQUEST
 DESCRIPTOR.message_types_by_name['ReqResponse'] = _REQRESPONSE
+DESCRIPTOR.message_types_by_name['MovieResponse'] = _MOVIERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RecRequest = _reflection.GeneratedProtocolMessageType('RecRequest', (_message.Message,), {
@@ -113,6 +154,13 @@ ReqResponse = _reflection.GeneratedProtocolMessageType('ReqResponse', (_message.
   })
 _sym_db.RegisterMessage(ReqResponse)
 
+MovieResponse = _reflection.GeneratedProtocolMessageType('MovieResponse', (_message.Message,), {
+  'DESCRIPTOR' : _MOVIERESPONSE,
+  '__module__' : 'data_pb2'
+  # @@protoc_insertion_point(class_scope:MovieResponse)
+  })
+_sym_db.RegisterMessage(MovieResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -123,8 +171,8 @@ _GREETER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=94,
-  serialized_end=150,
+  serialized_start=169,
+  serialized_end=225,
   methods=[
   _descriptor.MethodDescriptor(
     name='Recommendation',

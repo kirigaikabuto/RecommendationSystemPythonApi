@@ -10,9 +10,8 @@ class Greeter(data_pb2_grpc.GreeterServicer):
     def Recommendation(self, request, context):
         elements = getCollaborativeFilteringRecommendation(request.userId, request.movieId,
                                                            getContentBasedRecommendations(request.movieId))
-        ids = [str(i["movie_id"]) for i in elements]
-        out = ",".join(ids)
-        return data_pb2.ReqResponse(movieIds=out)
+
+        return data_pb2.ReqResponse(movies=elements)
 
 
 def serve():
