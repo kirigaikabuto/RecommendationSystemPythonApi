@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "/";
+service Greeter {
+  rpc Recommendation(RecRequest) returns (ReqResponse) {}
+}
+
+message RecRequest{
+  string userId = 1;
+  int32 movieId = 2;
+}
+
+message ReqResponse{
+  string movieIds = 1;
+}
