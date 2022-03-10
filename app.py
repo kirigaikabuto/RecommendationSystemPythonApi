@@ -7,8 +7,7 @@ from sklearn.metrics.pairwise import linear_kernel
 connection = pg.connect("host=localhost dbname=recommendation_system user=setdatauser password=123456789")
 
 
-
-def getContentBasedRecommendations(selectedId):
+def getContentBasedRecommendations(selectedId, count):
     data = psql.read_sql('SELECT * FROM movies', connection)
     # test_data = data["name"].iloc[1]
     test_data = data.loc[data["id"] == selectedId]
@@ -23,7 +22,7 @@ def getContentBasedRecommendations(selectedId):
     idx = indices[title]
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:10]
+    sim_scores = sim_scores[1:count + 1]
     movie_indices = [i[0] for i in sim_scores]
     topMovies = data['name'].iloc[movie_indices]
     topIds = data["id"].iloc[movie_indices]
@@ -88,7 +87,6 @@ def getCollaborativeFilteringRecommendation(userId, number, resultFromAnother):
     return newlist
 
 
-
 # print(getContentBasedRecommendations(993))
-print(getCollaborativeFilteringRecommendation("447016d2-c75f-4916-87fd-0bb7c3281a80", 994,
-                                              getContentBasedRecommendations(994)))
+print(len(getCollaborativeFilteringRecommendation("447016d2-c75f-4916-87fd-0bb7c3281a80", 994,
+                                                  getContentBasedRecommendations(994, 10))))
