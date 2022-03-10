@@ -2,7 +2,8 @@ syntax = "proto3";
 
 option go_package = "/";
 service Greeter {
-  rpc Recommendation(RecRequest) returns (ReqResponse) {}
+  rpc CollaborativeRecommendation(RecRequest) returns (ReqResponse) {}
+  rpc ContentBasedRecommendation(RecRequest) returns(ReqResponse){}
 }
 
 message RecRequest{

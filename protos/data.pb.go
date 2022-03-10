@@ -207,11 +207,15 @@ var file_data_proto_rawDesc = []byte{
 	0x76, 0x69, 0x65, 0x49, 0x64, 0x12, 0x29, 0x0a, 0x10, 0x70, 0x72, 0x65, 0x64, 0x69, 0x63, 0x74,
 	0x65, 0x64, 0x5f, 0x72, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x02, 0x52,
 	0x0f, 0x70, 0x72, 0x65, 0x64, 0x69, 0x63, 0x74, 0x65, 0x64, 0x52, 0x61, 0x74, 0x69, 0x6e, 0x67,
-	0x32, 0x38, 0x0a, 0x07, 0x47, 0x72, 0x65, 0x65, 0x74, 0x65, 0x72, 0x12, 0x2d, 0x0a, 0x0e, 0x52,
-	0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0b, 0x2e,
-	0x52, 0x65, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x52, 0x65, 0x71,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x03, 0x5a, 0x01, 0x2f, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x32, 0x80, 0x01, 0x0a, 0x07, 0x47, 0x72, 0x65, 0x65, 0x74, 0x65, 0x72, 0x12, 0x3a, 0x0a, 0x1b,
+	0x43, 0x6f, 0x6c, 0x6c, 0x61, 0x62, 0x6f, 0x72, 0x61, 0x74, 0x69, 0x76, 0x65, 0x52, 0x65, 0x63,
+	0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0b, 0x2e, 0x52, 0x65,
+	0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x52, 0x65, 0x71, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x39, 0x0a, 0x1a, 0x43, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x42, 0x61, 0x73, 0x65, 0x64, 0x52, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e,
+	0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0b, 0x2e, 0x52, 0x65, 0x63, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x52, 0x65, 0x71, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x42, 0x03, 0x5a, 0x01, 0x2f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -234,10 +238,12 @@ var file_data_proto_goTypes = []interface{}{
 }
 var file_data_proto_depIdxs = []int32{
 	2, // 0: ReqResponse.movies:type_name -> MovieResponse
-	0, // 1: Greeter.Recommendation:input_type -> RecRequest
-	1, // 2: Greeter.Recommendation:output_type -> ReqResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	0, // 1: Greeter.CollaborativeRecommendation:input_type -> RecRequest
+	0, // 2: Greeter.ContentBasedRecommendation:input_type -> RecRequest
+	1, // 3: Greeter.CollaborativeRecommendation:output_type -> ReqResponse
+	1, // 4: Greeter.ContentBasedRecommendation:output_type -> ReqResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -318,7 +324,8 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GreeterClient interface {
-	Recommendation(ctx context.Context, in *RecRequest, opts ...grpc.CallOption) (*ReqResponse, error)
+	CollaborativeRecommendation(ctx context.Context, in *RecRequest, opts ...grpc.CallOption) (*ReqResponse, error)
+	ContentBasedRecommendation(ctx context.Context, in *RecRequest, opts ...grpc.CallOption) (*ReqResponse, error)
 }
 
 type greeterClient struct {
@@ -329,9 +336,18 @@ func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
 	return &greeterClient{cc}
 }
 
-func (c *greeterClient) Recommendation(ctx context.Context, in *RecRequest, opts ...grpc.CallOption) (*ReqResponse, error) {
+func (c *greeterClient) CollaborativeRecommendation(ctx context.Context, in *RecRequest, opts ...grpc.CallOption) (*ReqResponse, error) {
 	out := new(ReqResponse)
-	err := c.cc.Invoke(ctx, "/Greeter/Recommendation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Greeter/CollaborativeRecommendation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *greeterClient) ContentBasedRecommendation(ctx context.Context, in *RecRequest, opts ...grpc.CallOption) (*ReqResponse, error) {
+	out := new(ReqResponse)
+	err := c.cc.Invoke(ctx, "/Greeter/ContentBasedRecommendation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -340,35 +356,57 @@ func (c *greeterClient) Recommendation(ctx context.Context, in *RecRequest, opts
 
 // GreeterServer is the server API for Greeter service.
 type GreeterServer interface {
-	Recommendation(context.Context, *RecRequest) (*ReqResponse, error)
+	CollaborativeRecommendation(context.Context, *RecRequest) (*ReqResponse, error)
+	ContentBasedRecommendation(context.Context, *RecRequest) (*ReqResponse, error)
 }
 
 // UnimplementedGreeterServer can be embedded to have forward compatible implementations.
 type UnimplementedGreeterServer struct {
 }
 
-func (*UnimplementedGreeterServer) Recommendation(context.Context, *RecRequest) (*ReqResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Recommendation not implemented")
+func (*UnimplementedGreeterServer) CollaborativeRecommendation(context.Context, *RecRequest) (*ReqResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CollaborativeRecommendation not implemented")
+}
+func (*UnimplementedGreeterServer) ContentBasedRecommendation(context.Context, *RecRequest) (*ReqResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ContentBasedRecommendation not implemented")
 }
 
 func RegisterGreeterServer(s *grpc.Server, srv GreeterServer) {
 	s.RegisterService(&_Greeter_serviceDesc, srv)
 }
 
-func _Greeter_Recommendation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Greeter_CollaborativeRecommendation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RecRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).Recommendation(ctx, in)
+		return srv.(GreeterServer).CollaborativeRecommendation(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Greeter/Recommendation",
+		FullMethod: "/Greeter/CollaborativeRecommendation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).Recommendation(ctx, req.(*RecRequest))
+		return srv.(GreeterServer).CollaborativeRecommendation(ctx, req.(*RecRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Greeter_ContentBasedRecommendation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RecRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GreeterServer).ContentBasedRecommendation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Greeter/ContentBasedRecommendation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GreeterServer).ContentBasedRecommendation(ctx, req.(*RecRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -378,8 +416,12 @@ var _Greeter_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*GreeterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Recommendation",
-			Handler:    _Greeter_Recommendation_Handler,
+			MethodName: "CollaborativeRecommendation",
+			Handler:    _Greeter_CollaborativeRecommendation_Handler,
+		},
+		{
+			MethodName: "ContentBasedRecommendation",
+			Handler:    _Greeter_ContentBasedRecommendation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
