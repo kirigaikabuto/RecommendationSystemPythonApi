@@ -8,6 +8,7 @@ service Greeter {
 message RecRequest{
   string userId = 1;
   int32 movieId = 2;
+  int32 count = 3;
 }
 
 message ReqResponse{
