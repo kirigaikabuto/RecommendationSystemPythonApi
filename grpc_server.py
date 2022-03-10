@@ -2,15 +2,20 @@ import data_pb2_grpc
 import data_pb2
 from concurrent import futures
 import grpc
-from app import getCollaborativeFilteringRecommendation, getContentBasedRecommendations
+from app import getCollaborativeFilteringRecommendation, getContentBasedRecommendations, \
+    getSpecialContentBasedRecommendations
 
 
 class Greeter(data_pb2_grpc.GreeterServicer):
 
-    def Recommendation(self, request, context):
+    def CollaborativeRecommendation(self, request, context):
         elements = getCollaborativeFilteringRecommendation(request.userId, request.movieId,
-                                                           getContentBasedRecommendations(request.movieId, count=request.count))
+                                                           getContentBasedRecommendations(request.movieId,
+                                                                                          count=request.count))
+        return data_pb2.ReqResponse(movies=elements)
 
+    def ContentBasedRecommendation(self, request, context):
+        elements = getSpecialContentBasedRecommendations(request.movieId, count=request.count)
         return data_pb2.ReqResponse(movies=elements)
 
 

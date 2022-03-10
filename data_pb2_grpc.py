@@ -14,8 +14,13 @@ class GreeterStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Recommendation = channel.unary_unary(
-                '/Greeter/Recommendation',
+        self.CollaborativeRecommendation = channel.unary_unary(
+                '/Greeter/CollaborativeRecommendation',
+                request_serializer=data__pb2.RecRequest.SerializeToString,
+                response_deserializer=data__pb2.ReqResponse.FromString,
+                )
+        self.ContentBasedRecommendation = channel.unary_unary(
+                '/Greeter/ContentBasedRecommendation',
                 request_serializer=data__pb2.RecRequest.SerializeToString,
                 response_deserializer=data__pb2.ReqResponse.FromString,
                 )
@@ -24,7 +29,13 @@ class GreeterStub(object):
 class GreeterServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Recommendation(self, request, context):
+    def CollaborativeRecommendation(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ContentBasedRecommendation(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -33,8 +44,13 @@ class GreeterServicer(object):
 
 def add_GreeterServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Recommendation': grpc.unary_unary_rpc_method_handler(
-                    servicer.Recommendation,
+            'CollaborativeRecommendation': grpc.unary_unary_rpc_method_handler(
+                    servicer.CollaborativeRecommendation,
+                    request_deserializer=data__pb2.RecRequest.FromString,
+                    response_serializer=data__pb2.ReqResponse.SerializeToString,
+            ),
+            'ContentBasedRecommendation': grpc.unary_unary_rpc_method_handler(
+                    servicer.ContentBasedRecommendation,
                     request_deserializer=data__pb2.RecRequest.FromString,
                     response_serializer=data__pb2.ReqResponse.SerializeToString,
             ),
@@ -49,7 +65,7 @@ class Greeter(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Recommendation(request,
+    def CollaborativeRecommendation(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,7 +75,24 @@ class Greeter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Greeter/Recommendation',
+        return grpc.experimental.unary_unary(request, target, '/Greeter/CollaborativeRecommendation',
+            data__pb2.RecRequest.SerializeToString,
+            data__pb2.ReqResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ContentBasedRecommendation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Greeter/ContentBasedRecommendation',
             data__pb2.RecRequest.SerializeToString,
             data__pb2.ReqResponse.FromString,
             options, channel_credentials,

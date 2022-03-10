@@ -87,6 +87,13 @@ def getCollaborativeFilteringRecommendation(userId, number, resultFromAnother):
     return newlist
 
 
+def getSpecialContentBasedRecommendations(selectedId, count):
+    res = [{"movie_id": i["id"], "predicted_rating": i["score"]} for i in
+           getContentBasedRecommendations(selectedId, count)]
+    return res
+
+
 # print(getContentBasedRecommendations(993))
-print(len(getCollaborativeFilteringRecommendation("447016d2-c75f-4916-87fd-0bb7c3281a80", 994,
-                                                  getContentBasedRecommendations(994, 10))))
+# print(getCollaborativeFilteringRecommendation("447016d2-c75f-4916-87fd-0bb7c3281a80", 994,
+#                                               getContentBasedRecommendations(994, 10)))
+#print(getSpecialContentBasedRecommendations(994, 10))

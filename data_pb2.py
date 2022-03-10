@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\001/',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ndata.proto\"<\n\nRecRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07movieId\x18\x02 \x01(\x05\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\"-\n\x0bReqResponse\x12\x1e\n\x06movies\x18\x01 \x03(\x0b\x32\x0e.MovieResponse\";\n\rMovieResponse\x12\x10\n\x08movie_id\x18\x01 \x01(\x05\x12\x18\n\x10predicted_rating\x18\x02 \x01(\x02\x32\x38\n\x07Greeter\x12-\n\x0eRecommendation\x12\x0b.RecRequest\x1a\x0c.ReqResponse\"\x00\x42\x03Z\x01/b\x06proto3'
+  serialized_pb=b'\n\ndata.proto\"<\n\nRecRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x0f\n\x07movieId\x18\x02 \x01(\x05\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\"-\n\x0bReqResponse\x12\x1e\n\x06movies\x18\x01 \x03(\x0b\x32\x0e.MovieResponse\";\n\rMovieResponse\x12\x10\n\x08movie_id\x18\x01 \x01(\x05\x12\x18\n\x10predicted_rating\x18\x02 \x01(\x02\x32\x80\x01\n\x07Greeter\x12:\n\x1b\x43ollaborativeRecommendation\x12\x0b.RecRequest\x1a\x0c.ReqResponse\"\x00\x12\x39\n\x1a\x43ontentBasedRecommendation\x12\x0b.RecRequest\x1a\x0c.ReqResponse\"\x00\x42\x03Z\x01/b\x06proto3'
 )
 
 
@@ -178,13 +178,23 @@ _GREETER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=184,
-  serialized_end=240,
+  serialized_start=185,
+  serialized_end=313,
   methods=[
   _descriptor.MethodDescriptor(
-    name='Recommendation',
-    full_name='Greeter.Recommendation',
+    name='CollaborativeRecommendation',
+    full_name='Greeter.CollaborativeRecommendation',
     index=0,
+    containing_service=None,
+    input_type=_RECREQUEST,
+    output_type=_REQRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ContentBasedRecommendation',
+    full_name='Greeter.ContentBasedRecommendation',
+    index=1,
     containing_service=None,
     input_type=_RECREQUEST,
     output_type=_REQRESPONSE,
